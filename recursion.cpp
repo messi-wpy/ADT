@@ -13,6 +13,7 @@
 #include "tokenscanner.h"
 #include"stdio.h"
 #include"gmath.h"
+#include"gbufferedimage.h"
 using namespace std;
 
 int gcd(int a, int b) {
@@ -49,16 +50,43 @@ void serpinskii(GWindow &w, int leftX, int leftY, int size, int order)
 
     cout << "[recursion serpinskii called]" << endl;
 }
+int n=0;
 
 int floodFill(GBufferedImage& image, int x, int y, int newColor) {
-    // your code here
-    cout << "[recursion flood fill called]" << endl;
-    return 0;
-}
 
+       if(image.getRGB(x,y)!=newColor){
+
+           int color = image.getRGB(x,y);
+           image.setRGB(x,y,newColor);
+           n++;
+
+           if(image.getRGB(x+1,y)==color)
+               floodFill(image,x+1,y,newColor);
+           if(image.getRGB(x-1,y)==color)
+               floodFill(image,x-1,y,newColor);
+           if(image.getRGB(x,y+1)==color)
+               floodFill(image,x,y+1,newColor);
+           if(image.getRGB(x,y-1)==color)
+               floodFill(image,x,y-1,newColor);
+       }
+
+       return n;
+}
+Map<string,string>exist;
 void personalCurriculum(Map<string, Vector<string>> & prereqMap,string goal) {
-    // your code here
-    cout << "[recursion personal curriculum called]" << endl;
+   if(prereqMap.containsKey(goal)){
+       for(int i=0;i<prereqMap.get(goal).size();i++){
+
+           personalCurriculum(prereqMap,prereqMap.get(goal).get(i));
+            if(!exist.containsKey(prereqMap.get(goal).get(i)))
+           cout<<prereqMap.get(goal).get(i)<<endl;
+           exist.put(prereqMap.get(goal).get(i),"exist");
+       }
+       if(!exist.containsKey(goal))
+           cout<<goal<<endl;
+       exist.put(goal,"exist");
+   }
+  //  cout << "[recursion personal curriculum called]" << endl;
 }
 
 string generate(Map<string, Vector<string> > & grammar, string symbol) {
