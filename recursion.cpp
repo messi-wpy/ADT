@@ -13,6 +13,8 @@
 #include "tokenscanner.h"
 #include"stdio.h"
 #include"gmath.h"
+#include"tokenscanner.h"
+#include"random.h"
 #include"gbufferedimage.h"
 using namespace std;
 
@@ -83,14 +85,28 @@ void personalCurriculum(Map<string, Vector<string>> & prereqMap,string goal) {
            exist.put(prereqMap.get(goal).get(i),"exist");
        }
        if(!exist.containsKey(goal))
-           cout<<goal<<endl;
+           cout<<goal<<endl;//所有调用完后输出第一个
        exist.put(goal,"exist");
    }
   //  cout << "[recursion personal curriculum called]" << endl;
 }
 
 string generate(Map<string, Vector<string> > & grammar, string symbol) {
-    // your code here
-    cout << "[recursion generate called]" << endl;
-    return "";
+    Vector<string>vec;
+    string str;
+    string result;
+    if(grammar.containsKey(symbol)){
+        vec=grammar.get(symbol);
+        int random=randomReal(0,vec.size()-1);
+         str=vec.get(random);
+         TokenScanner token(str);
+         while (token.hasMoreTokens()) {
+             string t=token.nextToken();
+            result+=generate(grammar,t);
+         }
+    }
+         else {
+             result=symbol;
+         }
+    return result;
 }
