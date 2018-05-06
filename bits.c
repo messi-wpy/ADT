@@ -187,7 +187,7 @@ int bitCount(int x) {
  *   Rating: 4 
  */
 int bang(int x) {
-  return 2;
+  return (((~x+1)|x)>>31)+1;
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -196,11 +196,11 @@ int bang(int x) {
  *   Rating: 1
  */
 int tmin(void) {
-  return 2;
+  return 1<<31;
 }
 /* 
  * fitsBits - return 1 if x can be represented as an 
- *  n-bit, two's complement integer.
+ *  n-bit, two's complement integer.2
  *   1 <= n <= 32
  *   Examples: fitsBits(5,3) = 0, fitsBits(-4,3) = 1
  *   Legal ops: ! ~ & ^ | + << >>
@@ -208,7 +208,10 @@ int tmin(void) {
  *   Rating: 2
  */
 int fitsBits(int x, int n) {
-  return 2;
+    int r,t;
+  	t = 32+(~n+1);
+  	r = (x<<t>>t)^x;
+  	return (!r);
 }
 /* 
  * divpwr2 - Compute x/(2^n), for 0 <= n <= 30
@@ -229,7 +232,7 @@ int divpwr2(int x, int n) {
  *   Rating: 2
  */
 int negate(int x) {
-  return 2;
+  return (~x)+1;
 }
 /* 
  * isPositive - return 1 if x > 0, return 0 otherwise 
@@ -239,7 +242,7 @@ int negate(int x) {
  *   Rating: 3
  */
 int isPositive(int x) {
-  return 2;
+  return !((x>>31)|!x);//考虑0
 }
 /* 
  * isLessOrEqual - if x <= y  then return 1, else return 0 
@@ -249,7 +252,13 @@ int isPositive(int x) {
  *   Rating: 3
  */
 int isLessOrEqual(int x, int y) {
-  return 2;
+int result=y+(~x+1);
+//符号相同不同会溢出
+
+int signx=(x>>31)&1;
+int signy=(y>>31)&1;
+int sign=!(result>>31)&1;
+return ((signx^signy)&signx)+((signx^signy^1)&sign);
 }
 /*
  * ilog2 - return floor(log base 2 of x), where x > 0
