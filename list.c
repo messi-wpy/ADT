@@ -4,7 +4,6 @@
 #define LIST_INIT_SIZE 100
 #define LISTINCREMENTSIZE 10
 
-typedef int ElemType;
 //顺序存储链表
 typedef struct SqList
 {
