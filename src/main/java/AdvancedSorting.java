@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class AdvancedSorting {
 
 
@@ -68,7 +70,10 @@ public class AdvancedSorting {
     }
 
     /**
-     * 快速排序
+     * 快速排序nlog(n)
+     * 比较次数少
+     * 但是如果每次分割都是第一小，然后第二小...这样每次只从大数组中分割出一个，就会造成快拍效率
+     * 极低，所以再输入前可以先将数组随机排序---偏爱随机性算法
      *
      */
     public void quickSort(Comparable[]a){
