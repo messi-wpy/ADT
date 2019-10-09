@@ -104,4 +104,52 @@ public class AdvancedSorting {
         return lo;
     }
 
+
+    /**
+     * 堆排序
+     * (大顶堆)
+     * @param a:
+     * 分两部分
+     * 从下往上建立堆
+     * 从上往下筛选
+     * n/2是完全二叉树的最后一个根节点
+     */
+    public void heapSort(Comparable[]a){
+        int n=a.length;
+        for (int i = n/2; i >=0 ; i--) {
+            sink(a,i,n);
+        }
+        for (int i = a.length-1; i >=0 ; i--) {
+            Example.exch(a,0,i);
+            sink(a,0,i);
+        }
+
+    }
+
+    //下标从0开始
+    private void sink(Comparable[]a,int start,int n){
+        while (start*2+1<n){
+            int j=start*2+1;
+            if (j+1<n && Example.less(a[j],a[j+1]))
+                j++;
+            if (!Example.less(a[start],a[j]))
+                break;
+            Example.exch(a,j,start);
+            start=j;
+
+        }
+    }
+
+    private void swim(Comparable[]a,int k,int n){
+        while (k/2>1){
+            if (Example.less(a[k/2],a[k])) {
+                Example.exch(a, k / 2, k);
+                k=k/2;
+            }
+            else
+                break;
+
+        }
+
+    }
 }

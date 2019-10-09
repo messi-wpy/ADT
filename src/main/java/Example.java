@@ -5,7 +5,7 @@ public class Example {
         Comparable[]test={8,6,45,4,7,1,45,44,8,5,10,18,77,3};
         PrimarySorting primary=new PrimarySorting();
         AdvancedSorting advanced=new AdvancedSorting();
-        advanced.quickSort(test);
+        advanced.heapSort(test);
         System.out.println(isSorted(test));
         show(test);
 
