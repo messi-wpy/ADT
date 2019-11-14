@@ -1,3 +1,5 @@
+package sort;
+
 public class MyPriorityQueue <key extends Comparable<key>>{
     private key[] array;
     private int n=0;
