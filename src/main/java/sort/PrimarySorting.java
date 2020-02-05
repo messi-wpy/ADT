@@ -63,7 +63,7 @@ public class PrimarySorting {
             for ( j = i-1; j >=0&&Example.less(temp,nums[j]) ; j--) {
                 nums[j+1]=nums[j];
             }
-            nums[j]=temp;
+            nums[j+1]=temp;
         }
 
     }
